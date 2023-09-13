@@ -1,0 +1,34 @@
+Vezérlőpult\Felhasználói fiókok\Hitelesítőadat-kezelő
+"saját hitelesítő adatok kezelése"/"windows rendszerbeli hitelesítő adatok"
+Ha csatlakozunk egy távoli megosztott meghajtóra akkor itt tudjuk törölni a hitelesítési adatokat ha megváltozna a jelszó és utána újraindítás szükséges.
+Ha nincs sok meghajtó próbáljuk meg csak szerkeszteni.
+
+
+VB:
+NAT mód - olyan mintha a Host gép router lenne
+Bridge - ugyan abból a tatományból kapok ip-t mint a host gép (olyan lesz mint a host gép / nem megkülönböztethetőek)
+Belső hálózat - külön hálózat
+Host-only - semmihez nem csatlakozik (loopback)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
