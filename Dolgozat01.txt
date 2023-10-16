@@ -1,0 +1,27 @@
+Témazáró - Windows szerver alaptelepítés
+Határidő ma ekkor: 18:00
+Utasítások
+Szervergép telepítése:
+- Windows 2016 Server
+- 2GB RAM
+- 2x50GB háttértároló
+- 1. háttértár: rendszer
+- 2. háttértár: felhasználói adatok
+- DHCP szolgáltatások telepítése (1 scope, DNS és Router opciók beállítása)
+- 2. háttértáron "install" mappa megosztása "Everyone" számára olvasási joggal
+- Active Directory telepítése és a kliensgép tartományba történő felvétele
+- 2 db. OU és azokban 2-2 felhsználó felvétele
+- Második beadandó képernyőkép: a 4 felhasználónak Home könyvtár beállítása, bemutatni a szervergép Fájlkezelőjében kell
+
+
+Kliensgép telepítése:
+- szabadon választott Windows operációs rendszer
+- Első beadandó képernyőkép: amikor a szerveren elérhetővé vált az "install" megosztás, bemutatni a kliens képernyőképével
+- Harmadik beadandó képernyőkép: a felhasználó bejelentkezik a tartományba és felcsatolódik a Home könyvtára, bemutatni a kliensgép Fájlkezelőjében kell
+- Negyedik beadandó képernyőkép: az összes felhasználó bejelentkezett a tartományba a kliensgépen, bemutatni a kliensgép Fájlkezelőjében kell a létrejött profilokat.
+
+Osztályzatok:
+Első hibátlan képernyőkép - elégséges
+Második hibátlan képernyőkép - közepes
+Harmadik hibátlan képernyőkép - jó
+Negyedik hibátlan képernyőkép - jeles
