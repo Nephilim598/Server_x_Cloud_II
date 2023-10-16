@@ -1,0 +1,159 @@
+
+MMC - microsoft management console
+Ctrl + S - lehet menteni az aktuális helyzeteket
+jelszó: Abcd1234
+
+Ellenőrizni átjelentkezéssel
+
+Active Directory Domain Services Feature-t kell telepíteni.
+
+Új felhasználó:
+	fáj
+	beépülőmodul hozzáad
+	helyi felhasználók és csoportok
+	hozzáad (helyin)
+	felhasználók jobb klikk új felhasználó
+	(bekell pipálni a "soha nem jár le pw" és kikell szedni a bejelentkezéskori megváltoztatást)
+	
+	
+Csoport létrehozása:
+	csoportok jobb klikk
+	új csoport
+	csoport neve majd felhasználó hozzáadása / névellenőrzésnél ez a forma a jó "DESKTOP-PJ9R2AE\Fanni"
+	
+	
+	
+Jogosultságkezelés:
+	adott fájra jobb klikk
+	tulajdonságok
+	biztonság
+	szerkesztés
+	hozzáadás / névellenőrzésnél ez a forma a jó "DESKTOP-PJ9R2AE\Fanni"
+	
+	biztonság
+	engedélyek módosítása
+	Öröklődés letiltása
+	konvertálás
+
+
+
+
+Új User:
+	Tools
+	Active Directory Users ans Computer
+	User jobb klikk New User
+	Full nevet és usernevet kell adni majd Pw és "never expires" ne járjon le a jelszó
+
+
+
+Fájlmegosztás:
+	File and Storage Services (Server manager-t  megnyitva baloldali felsorolásnál)
+	Sharenél New Share
+	Share locate
+	névadás
+	Permissionok
+	create
+
+	utána még a Network Path-et meg kell adni a win10-en
+	jobb klikk win10-en hálózat és új hálózati meghajtó hozzáadása és a szerveren lévő mappánál a Sharing fülön lévőt meg kell adni a network Path-et a win 10-hez
+	szerveren a file sharing-nál a win10-es felhasználót hozzáadni a jogosultakhoz
+
+
+	Ha megtagadjuk egy felhasználó hozzáférését a mappához akkor  a security fülnél el kell venni az adott jogokat (akár mindet)
+
+
+	Ha letiltjuk az öröklődést akkor a megadott felhasználókhoz való jogokat az adott file-nál / mappánál nem kapja meg.
+
+
+
+Saját Home mappa felhasználónként:
+	users and computers-nél
+	Usersnél felhasználóra katt profile és connect
+	kiválasztasz egy meghajtót és elérhetőség (Példa: \\WIN-T3LJ1UQO8HH\home\%Username% ) <-- ha így írjuk akkor a felhasználó nevére hozza létre a mappát
+
+
+
+
+	
+
+Megosztás:
+	(fanni.hu-ra klikk) New
+	organization unit (nevet kell adni)
+	nevére klikk new user
+	A User mappában úgyan úgy létre kell hozni 2 groupot nekik
+
+	File and Storage Services (server manager)
+	majd sharing
+	tasknál new share
+	location
+	a nevet automatic berakja
+	settingsnél az "enable access-based enumeration" pipára
+
+	majd ezeknél a mappáknál az öröklődést le kell tiltani 
+	mappára jobb klikk security
+	advanced 
+	disable inheritance
+
+
+
+
+Felhasználó korlátozása(pl:hangvezérlés letiltása):
+
+	Group policy management (powershell > gpedit.msc)
+	fanni.hu Forest (-en keresztül domain majd fanni.hu)
+	Group policy Objects
+	new (neve proba)
+	az elkészöltre jobb klik és edit
+	User configuration
+	Administrative templates
+	kikeressük az adott szabályt dupla katt enable majd a proba objectet ráhúzzuk arra az organization mappára amin érvényesíteni akarjuk 
+	(A klienst újra kell indítani)
+
+
+
+
+
+
+FTP:
+	Roles an fetures
+	webszerver fül alatt a 2 FTP lehetőségre pipa
+	létrehozol egy mappát amit majd megosztunk
+	majd tools IIS manager
+	site-ra jobb klikk new ftp
+	ftp neve és a létrehozott mappa helye
+	ip megadása
+	majd group és alá a csoport neve
+	
+	kurd meg a tűzfalat
+		1,
+		advance settings 
+		új szabály (New Rule)
+		porthozzáadás
+		specific local ports: 21
+		Allow the connection
+		next
+		név adás (FTP)
+		
+
+		2,
+		allow an app feature
+		browse
+		svchost hozzáadása
+	total commanderben a passzív módot kapcs be
+
+
+video: https://www.youtube.com/watch?v=BJ5JaCBlR98&ab_channel=Tricknology
+
+
+
+
+
+
+
+
+
+
+
+
+
+

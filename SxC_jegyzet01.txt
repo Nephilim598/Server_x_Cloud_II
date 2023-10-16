@@ -1,0 +1,116 @@
+Abcd1234
+
+eldobja a címeket - ipconfig /release
+új címeket kér - ipconfig /renew
+
+
+Ipv4 cím adás:
+	jobb klikk a hálózatra
+	internetbeállítások
+	adapterbeállítások
+	ethernet - tulajdonságok
+	tcp ip protokoll (dupla katt)
+
+Tűzfal:
+	inbound rules
+	outbound rules
+	
+	ipv4 / ipv6 engedelyezese
+
+Javaslat: sorban haladj, ne telepíts fel egyszerre mindent
+
+DHCP server:
+	server manager program
+	manage fül
+	add roles and features
+	Dhcp-t kell majd kiválasztani amúgy next next next
+	Install
+	majd Tools fül és dhcp
+	ipv4 jobb klikk new scope
+	nevet adsz pl lan1
+	majd ip beállítás jön
+	aztán az excluded
+	utána hogy mennyi időre kaphatják a címet
+	majd jön egy router ip kérés (natolásnál a szerver címe kell)
+	kész
+
+
+
+NAT:
+	server manager program
+	manage fül
+	add roles and features	
+	Remote Access-t kell kiválasztani
+	Routingot bepipáljuk a felette lévővel
+	Install
+	Toolsnál Routing and Remote access
+	Sajátgép jobb klikk "Configure and Enable Routing and Remote Access"
+	klikk Custom next
+	klikk Nat
+	Finish / Start Services
+	Ipv4 azon belül Nat fül
+	New  interface
+	Publikus(Bridge)-t kiválaszt next Publicra kell rakni !Enable Nat!
+	New interface
+	Lan(Belső)-t kiválasztani next és Privátra kell rakni
+	kész
+	
+
+
+
+
+
+
+
+
+WEB:
+	server manager program
+	manage fül
+	add roles and features
+	Web Server fül azon belül Web Server azon belül Security ott Windows Authentication
+	Application Development-nél ASP.NET 4.6 / .NET ext. 4.6
+	IIS manager
+	A default website-ot egyszerűbb átírni (html fájt, ip, mappa, stb..) Fontos hogy port:80
+	
+	
+	
+
+
+
+DNS:
+	Manage fül
+	add feature
+	Server Roles-nál DNS
+	majd a dhcp-nél Server options-ban more actions és 006 a dns és a szerver ip-t kell adni
+	majd ujra add feature és active directory Domain Services install
+	majd zászló promote this server
+	add a new forest és pl fanni.hu
+	majd kövi oldalon nagy kezdőbetűvel egy password
+	NetBIOS domain name-nél meg kell jelennie esetünkben FANNI-nak (nem kell vele semmit csinálni csak next)
+	install (újra fog indulni magától)
+		Ellenőrizni: dhcp működik mert lekapcsolhat
+				Ha nem működik a dhcp akkor tools dhcp ott a gépre jobb klikk all task restart majd újra klikk és authorize
+	
+	Majd a Win10 klienst kell beállítani 
+	fájlkezelő
+	"Ez a gép" jobb klikk 
+	számítógép átnevezése (special)
+	"módosítás" (tartomány és munkacsoport)
+	Tagságot tartományra és a megadott FANNI majd az rendszergazdai felhasználóval kell belépni (pl:Administrator@fanni.hu))
+	majd újra kell indítani
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
