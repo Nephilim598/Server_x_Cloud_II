@@ -1,0 +1,269 @@
+Videó ajánló: MSFT WEBCAST
+
+------------------------------------------------------------------------------
+
+Weboldal Dupla:
+add website
+site name pl: Petrik
+path beállítása ahol a html fájl van (2 külön hely)
+port beállítás pl: 8080, 8081
+Host name (a kiszolgálód neve amit létrehoztál.  A DNS-ben a forward lookup zones-nál látod.)
+
+
+------------------------------------------------------------------------------
+
+
+FTP:
+AD-ban csinálsz egy ftp_users csoportot, adsz hozzá felhasználót
+létrehozol egy ftp mappát amihez a csoport kap hozzáférést
+majd IIS M.-ben  add ftp site 
+site name pl ftp.petrik.hu
+megadod a létrehozott mappát
+no ssl
+majd
+Basic-re pipa
+Roles or user groups
+alá a FTP_USERS
+2 pipa
+
+
+
+------------------------------------------------------------------------------
+
+
+RAID-ek:
+simple (egyszerű) nincs redundancia
+spanned (kiterjesztett)
+striped (sávos) nincs redundancia RAID 0
+mirrored (tükrötött) RAID 1
+
+
+
+------------------------------------------------------------------------------
+
+
+DFS:
+Add roles and features
+file and storage services --> DFS Namespaces
+DFS manager
+Namespaces "klikk" new namespaces
+object name (A pc-d neve)
+Name (A namespace neve pl: DFS) (alatta a beállításokban változtathatod meg a nevét)
+create
+
+"klikk" new folder
+Name -> folder elérés neve pl: DM
+target folder hozzáadása pl: DMappa
+
+
+group policy
+GP objects
+new
+edit
+user config
+preferences
+drive maps
+klikk
+new
+action: replace
+location (\\petrik.hu\DFS) + meghajtó betű kiválasztása
+
+majd KLIENSEN:
+meghajtó csatlakoztatása (\\servergépnév\DFS)
+
+
+
+------------------------------------------------------------------------------
+
+
+
+Quotas and screening (File Server Resource Manager):
+
+
+
+Screening:
+töltsd le a File server resource managert
+ha kész kattints a server managerben a
+file and storage services-re ott shares
+task -> new share
+share locationnál custom path (létrehozon neki valahol egy mappát)
+ENABLE access-based enumeration
+Permissions --> customize permissions --> disable inheritance --> convert 
+majd Allowed users részek remove
+majd add --> principal --> group/user hozzáadása
+Applies to-t Folder only-ra
+majd advanced permission --> pipa "create folders / append data"
+OK and Apply and Create
+
+File and resource manager
+File sceen template klikk new File sceen template
+adj neki nevet <3
+és válaszd ki hogy mit tiltasz le
+pl:     név Audio block
+	pipa audio and video file
+	edit
+	majd excluded-be rakod amit ki akarsz zárni (included-ből vedd ki)
+
+majd klikk file screens create F. screen
+kiválasztod a mappát amire vonatkozzon és alatta a legördülőben a saját létrehozott templatedet kiválasztod
+create
+
+
+
+
+Quotas:
+töltsd le a File server resource managert (SMB advanceddel egyből adhatunk hozzá quotát)
+ha kész kattints a server managerben a
+file and storage services-re ott shares
+task -> new share
+share locationnál custom path (létrehozon neki valahol egy mappát)
+ENABLE access-based enumeration
+Permissions --> customize permissions --> disable inheritance --> convert 
+majd Allowed users részek remove
+majd add --> principal --> group/user hozzáadása
+Applies to-t Folder only-ra
+majd advanced permission --> pipa "create folders / append data"
+OK and Apply and Create
+ 
+
+F.S.R.Managerben Q. templates new template
+nevet, leírást, limitet eállítani, Hardon nem megy ki
+majd Add  és itt tudsz jelzést adni ha átlép egy %-ot a felhasználó a limitjén pl: 90% szólsz neki hogy kifut a kv
+
+
+majd Quotas klikk new q.
+mappa kiválasztása amire vonatkozik
+alatta hogy csak a mappára vagy az almappákra is vonatkozzon
+alatta a kiválasztod a legördülőben a létrehozottat vagy ha nem csináltál akkor custom
+done
+
+
+
+Ell:
+átléped a pl:85%-ot valamit bemásolsz az userrel a mappába
+majd szerveren az event viewerben az administrative eventsben látod a hogy átlépted (srmsvc)
+
+
+------------------------------------------------------------------------------
+
+
+
+BACKUP:
+töltsd le features-t (win serv. backup)
+van menetrendi és alatta egyszeri mentés
+lehet helyi és távoli
+done
+
+
+------------------------------------------------------------------------------
+
+
+Print server:
+printer features letöltése
+majd printer management
+print server fül
+printers klikk add printer
+type of device TCP/IP
+alá ip address
+Driver kiválasztásnál microsoft openXPS Class Driver (nem 2)
+ha kész katt rá properties sharing és pipa directory list
+
+Ports 
+new port
+standard
+ip address
+
+Printers-nél létrehozottad propertise
+Portsnál pipálod a printer poolingot majd kiválasztod az imént létrehozott portot is
+
+Kliensen!
+Win+R bill. "control"
+hardver és hang
+nyomtatók / nyomtatók és szkennerek
+eszköz hozzáadása v nyomtató telepítése (win11 v win10 függ) (ha nem találja akkor manuális hozzáadás TCP/IP-vel)
+
+
+------------------------------------------------------------------------------
+
+
+
+
+
+Szoftver telepítés Group policy:
+A megfelelő OU-ba áthelyezzük a computers-ből a gépeket
+létrehozunk egy mappát az exe fájloknak azt megosztjuk (path kimásolása)
+Group policy management
+new object majd edit
+computer config
+policies
+software settings
+software install
+katt properties
+default locations-ba bemásoljuk a létrehozott mappánk elérhetőségét
+
+new package
+kiválasztás (CSAK MSI package (windows installer)(vállalkozások számára való))
+open / ok
+
+majd G.P.-nél kikeresed azt az OU-t amire vonatkozzon 
+majd katt link an existing GPO
+kiválasztod az objektumot amit létrehoztál
+
+Kliens!
+cmd
+gpupdate /force
+y
+
+HA NEM JÓ, akkor
+gpupdate /force
+n
+és manuálisan indítsd újra
+
+
+
+------------------------------------------------------------------------------
+NTUSER:
+a kliensen a userből bele kell menni a serveren a user mappájába a rejtett fájlokat be kell kapcsolni és ott a .dat ot .man ra át kell írni
+
+
+
+Vándor profil:
+AD-ban user properties profil és profile path
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
