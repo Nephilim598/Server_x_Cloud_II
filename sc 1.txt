@@ -1,0 +1,225 @@
+active directory
+
+Group kezelés:
+
+Domain local - helyi 
+Global - tartomány és altartományai
+universal - egész Forest
+
+
+Csoportnak lehet tagja másik csoport / felhasználó
+
+
+a tároló objektumokat mappa szinten követjük
+
+
+3 féle házirend van a group policy-n
+
+helyi - ami előtt van a felhasználó
+default domain policy - minden egyes tartományban lévő objektumra vonatkozik
+Userházirend - felhasználóra / adott gépre
+
+
+
+-----------------------------------------------
+
+
+Disk manager:
+Raid 1 - 2 lemez összeadása
+Raid 0 - átnyúló kötet
+raid 0 jó ha kell az írási teljesítmény (pl: videó vágáskor stb.)
+
+Break mirror volume -   ha széttörjük a tükröt akkor szédszedünk 2 merevlemezt (Raid 1-et kettészedjük)
+
+
+extend volume - kiterjesztés
+
+Simple volume - 1 meghajtón van sima egyszerű kötet
+spanned - átnyúló kötet  ( akár 3 disken 1 kötet)
+Striped Volume - a lemezeken azonos méretű köteteket hoz létre (quick format pipa, különben lassú) (pl: 3 disken hozza létre az D kötetet)
+Mirrored volume - tükrözés (hibatűrő) (rendszer adatok tárolásakor használják)
+Raid 5 - n-1 a használható terület (pl 9 lemezből 8-at használhaszt ) ( 1 lemez adata a többin szétszórva található) (főleg user adatok tárolására használják)(quick format pipa, különben lassú)
+
+(UTÁNANÉZNI RAID0 / 1 / 5)
+
+
+-------------------------------------------
+
+fájlszolgáltatások (szűrés és quota):
+
+file and storage services alatt az add roles-nál
+fájlszerver resource manager
+
+a menüben:
+File Screering managementben:  letilthatjuk pl az mp3 fileok tárolását
+vannak előre elkészített sablonok a kiterjesztésekre (pl executable azaz futtatható fájlok letiltása)
+
+
+quota management: korlátozások (pl 1 mappa nem lehet 2gb-nál nagyobb)
+soft limit -túlléphető + figyelmeztetés
+hard limit - nem léphető tűl
+
+
+
+
+
+
+köteten jobb egérgomb tulajdonságok és quota menü
+ha itt engedélyezzük akkor személyre vonatkoztatva csinálhatunk korlátokat a sima az nagyobb kiterjesztésű
+itt a menüben is lehet limitálni a helyet.
+
+
+-------------------------------------------------------------
+
+distributed file system - elosztott fájl rendszer ( a részei több helyen találhatóak )
+A megosztásokat a szerverekszintjéről a tartomány szintjére hozza 
+tehát nem //server hanem //tartománynév-ként fogunk megtalálni pl egy mappát
+
+
+DFS:
+Toolsnál DFS management
+
+replication - szinkronban tartja ugyan azt a pl mappát 2 szerveren
+
+
+
+-------------------------------------------
+
+Server Backup
+
+Tools - windows Server Backup
+scheduled - időzitett mentés
+be kell állítani h milyen mélységben mentünk érdemes a teljes rendszert menteni
+Fontos h külön Disk-re mentsünk
+
+Disk managementben látszik csak a backup kötetünk 
+ha merevlemezre mentünk ( az egészet törli előtte)
+kötetre is menthetünk 
+vagy hálózati megosztás
+
+A raid köteteinkre érdemes backupot csinálni
+
+
+-----------------------------------------------
+
+
+Print szerver:
+
+Printer documents services - add role servicesnél
+
+a printert hozzá tudjuk kapcsolni a szerverhez amit tovább tudunk osztani a felhasználónak
+és engedélyeket állíthatunk be
+
+Tools - print management
+itt láthatjuk a print szervereket és a feltelepített printereket
+XPS-t senki nem használ töröljük
+
+print install:
+add a new printer existing - LPT1 !!!!!
+(hp color laiserlet (2. opció))
+utána printer neve + share
+
+
+
+jobb katt rá 
+deploy with group policy
+browse-nál kikeressük a házirendünket
+és alul a menüben választhatunk hogy userre vagy computerre vonatkozzon
+
+
+--------------------------------
+IIS
+DNS manager
+
+wwwrootban a weboldalak filjainak létrehoztunk 1-1 mappát (egyik / másik)
+
+dns m.-nél 
+forward lookup
+tartományunk
+new host
+megadjuk a nevet (amit a mappájának adtunk jelen esetben egyik és másik) és ip-t
+
+
+IIS:
+add website
+Host nevet beírjuk (fontos mert ez alapján különböztetjük meg a 2 weboldalt) (pl: masik.fanni.local)
+site nevét
+fizikai helyét a wwwrootban 
+port 80
+ip
+
+
+-----------------------------
+
+
+FTP:
+
+Active directoriba létrehozunk egy csoportot pl FTP_Users
+ehhez adunk csoportokat vagy embereket akik hozzáférhetnek majd az FTP szolgáltatáshoz.
+
+Majd IIS manager
+Site-ra jobb klikk add FTP
+nevet adunk
+megadjuk a mappáját  inetpub\ftproot
+No ssl
+majd Basic (ennél hitelesítjük a belépő személyt)
+allow accesnél: specified roles or user groups
+alá a létrehozott csoport FTP_Users 
+
+
+
+
+
+
+parancssor:
+ftp localhost
+vagy
+ftp fanni.local
+
+
+
+ha mappát akarunk létrehozni akkor jogot kell adni a FTP_Users groupnak aftproot-ra!
+
+
+fájlkezelőben:
+ftp:\\fanni.local
+
+
+
+Külső elérhetőség engedélyezése:
+control panel 
+windows firewall
+allow apps
+add an app
+System32 mappa 
+Át kell engedni a tűzfalon a 
+svchost.exe-t
+majd
+host process for windows services 3 pipa
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
